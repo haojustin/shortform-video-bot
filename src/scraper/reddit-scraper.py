@@ -1,6 +1,12 @@
 from bs4 import BeautifulSoup 
 from selenium import webdriver 
 import time
+import os
+import json
+
+save_directory = os.path.join("..", "..", "data", "scraped_stories")
+os.makedirs(save_directory, exist_ok=True)
+
 
 def scroll_down(driver, limit):
     """
@@ -46,11 +52,19 @@ for item in items:
     title = item.find_all("a", slot="title")
     titles.append(title[0].get_text())
 
-# Print titles and corresponding posts
-for i in range(len(posts)):
-    print("START \n")
-    print(titles[i])
-    print(posts[i])
-    print("\nEND \n")
+# Print titles and corresponding posts into data/scraped_stories
+for i, (title, post) in enumerate(zip(titles, posts)):
+
+    story_data = {
+        "title": title,
+        "content": post
+    }
+    # Construct the file path for the JSON file to be saved
+    file_path = os.path.join(save_directory, f"story_{i}.json")
+
+    # Open the file in write mode and dump the story data as JSON
+    with open(file_path, 'w', encoding='utf-8') as file:
+        json.dump(story_data, file, ensure_ascii=False, indent=4)
+
 
 driver.close()
