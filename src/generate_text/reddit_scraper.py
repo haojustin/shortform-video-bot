@@ -1,29 +1,12 @@
 from bs4 import BeautifulSoup 
 from selenium import webdriver 
-import time
 import os
 import json
-from grammar_spell_check import grammar_spell_check
+from utils import grammar_spell_check, scroll_down
 from profanity import profanity
 
 save_directory = os.path.join("..", "..", "data", "scraped_stories")
 os.makedirs(save_directory, exist_ok=True)
-
-
-def scroll_down(driver, limit):
-    """
-    A function for scrolling the page.
-     
-    Parameters: 
-    driver - an instance of WebDriver
-    limit - specifies how many times to scroll and is a non-negative integer
-    """
-    for i in range(limit):
-        # Scroll down to the bottom.
-        driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-
-        # Wait to load the page.
-        time.sleep(2)
 
 url = "https://www.reddit.com/r/AmItheAsshole/"
   

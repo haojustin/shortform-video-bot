@@ -1,4 +1,5 @@
 import requests
+import time
 
 def grammar_spell_check(text):
 	"""
@@ -19,3 +20,18 @@ def grammar_spell_check(text):
 	response = requests.post(url, data=payload, headers=headers)
 
 	return response.json()["response"]["corrected"]
+
+def scroll_down(driver, limit):
+    """
+    A function for scrolling the page.
+     
+    Parameters: 
+    driver - an instance of WebDriver
+    limit - specifies how many times to scroll and is a non-negative integer
+    """
+    for i in range(limit):
+        # Scroll down to the bottom.
+        driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+
+        # Wait to load the page.
+        time.sleep(2)
