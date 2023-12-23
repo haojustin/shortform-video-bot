@@ -25,10 +25,11 @@ def convert_tts(title, content, output_path):
 
     # Speed up the speech
     audio = AudioSegment.from_mp3(temp_path)
-    faster_audio = audio.speedup(playback_speed=1.2)
+    # faster_audio = audio.speedup(playback_speed=1.2)
 
     # Save the processed audio
-    faster_audio.export(output_path, format="mp3")
+    # faster_audio.export(output_path, format="mp3")
+    audio.export(output_path, format="mp3")
 
     # Clean up temporary file
     os.remove(temp_path)
