@@ -3,6 +3,8 @@ from selenium import webdriver
 import time
 import os
 import json
+from grammar_spell_check import grammar_spell_check
+from profanity import profanity
 
 save_directory = os.path.join("..", "..", "data", "scraped_stories")
 os.makedirs(save_directory, exist_ok=True)
@@ -30,7 +32,7 @@ driver = webdriver.Chrome()
 driver.get(url)  
   
 # Ensures that the page dynamically loads more content
-scroll_down(driver, 3)
+scroll_down(driver, 1)
   
 # Renders the JS code and stores all of the information in static HTML code
 html = driver.page_source 
@@ -47,6 +49,11 @@ for item in items:
     paragraphs = item.find_all("p")
     for paragraph in paragraphs:   
         post += paragraph.get_text()
+    # Apply grammar and spelling check (will be charged if >500 requests per month)
+    # post = grammar_spell_check(post)
+    # Censor profanity
+    post = profanity.censor(post)
+    print(post)
     posts.append(post)
 
     title = item.find_all("a", slot="title")
@@ -59,6 +66,7 @@ for i, (title, post) in enumerate(zip(titles, posts)):
         "title": title,
         "content": post
     }
+
     # Construct the file path for the JSON file to be saved
     file_path = os.path.join(save_directory, f"story_{i}.json")
 
