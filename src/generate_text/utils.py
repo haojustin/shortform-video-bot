@@ -1,25 +1,27 @@
 import requests
 import time
+import os
 
 def grammar_spell_check(text):
-	"""
+    """
     A function for fixing the grammar and spelling of the given text.
      
     Parameters: 
     text - the text to check (string)
     """
-	url = "https://textgears-textgears-v1.p.rapidapi.com/correct"
+    RAPID_API_KEY = os.environ.get("RAPID_API_KEY")
+    url = "https://textgears-textgears-v1.p.rapidapi.com/correct"
 
-	payload = { "text": text }
-	headers = {
+    payload = { "text": text }
+    headers = {
 		"content-type": "application/x-www-form-urlencoded",
-		"X-RapidAPI-Key": "e645dfa1cbmshe5101813d57d786p174249jsn17471126608c",
+		"X-RapidAPI-Key": RAPID_API_KEY,
 		"X-RapidAPI-Host": "textgears-textgears-v1.p.rapidapi.com"
 	}
 
-	response = requests.post(url, data=payload, headers=headers)
+    response = requests.post(url, data=payload, headers=headers)
 
-	return response.json()["response"]["corrected"]
+    return response.json()["response"]["corrected"]
 
 def scroll_down(driver, limit):
     """
