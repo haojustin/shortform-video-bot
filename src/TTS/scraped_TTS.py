@@ -9,10 +9,9 @@ def convert_tts(title, content, output_path):
     The speech is sped up by a factor of 1.2
 
     Parameters:
-    title - The title of the story. 
-    content - The content of the story
-    output_path - The file path where the TTS audio will be saved
-
+    title - the title of the story (string)
+    content - the story itself (string)
+    output_path - the file path where the TTS audio will be saved (string)
     """
 
     # Pause after title
