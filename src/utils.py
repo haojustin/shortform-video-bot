@@ -1,6 +1,7 @@
 import requests
 import time
 import os
+import re
 
 def grammar_spell_check(text):
     """
@@ -23,6 +24,7 @@ def grammar_spell_check(text):
 
     return response.json()["response"]["corrected"]
 
+
 def scroll_down(driver, limit):
     """
     A function for scrolling the page.
@@ -37,3 +39,39 @@ def scroll_down(driver, limit):
 
         # Wait to load the page.
         time.sleep(2)
+
+
+def replace_bad_words(input_text):
+    """ 
+    Returns the input string with bad words replaced with the corresponding
+    replacement word.
+
+    Parameter:
+    input_text - the text to filter through (string)
+    """
+    bad_words = get_words("bad_words.txt")
+    replacement_words = get_words("replacement_words.txt")
+
+    for i in range(len(bad_words)):
+        bad_word = re.compile(re.escape(bad_words[i]), re.IGNORECASE)
+        input_text = bad_word.sub(replacement_words[i], input_text)
+    
+    return input_text
+
+
+def get_words(file):
+    """ 
+    Gets the word list from the provided file.
+
+    Parameter:
+    file - name of the file containing the words to be loaded (string)
+         - should be a flat text file with one profanity entry per line
+    """
+    ROOT = os.path.abspath(os.path.dirname(__file__))
+
+    filename = os.path.join(ROOT, 'data', file)
+    f = open(filename)
+    wordlist = f.readlines()
+    wordlist = [w.strip() for w in wordlist if w]
+    
+    return wordlist

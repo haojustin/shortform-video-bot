@@ -2,8 +2,9 @@ from bs4 import BeautifulSoup
 from selenium import webdriver 
 import os
 import json
-from utils import grammar_spell_check, scroll_down
-from profanity import profanity
+import sys
+sys.path.append('../../src')
+from utils import grammar_spell_check, scroll_down, replace_bad_words
 
 save_directory = os.path.join("..", "..", "data", "scraped_stories")
 os.makedirs(save_directory, exist_ok=True)
@@ -35,7 +36,7 @@ for item in items:
     # Apply grammar and spelling check (will be charged if >500 requests per month)
     # post = grammar_spell_check(post)
     # Censor profanity
-    post = profanity.censor(post)
+    post = replace_bad_words(post)
     print(post)
     posts.append(post)
 
