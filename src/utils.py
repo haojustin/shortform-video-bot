@@ -49,9 +49,11 @@ def replace_bad_words(input_text):
     Parameter:
     input_text - the text to filter through (string)
     """
+    # Get list of bad words and their replacements
     bad_words = get_words("bad_words.txt")
     replacement_words = get_words("replacement_words.txt")
 
+    # Replace the bad word in the text if it exists
     for i in range(len(bad_words)):
         bad_word = re.compile(re.escape(bad_words[i]), re.IGNORECASE)
         input_text = bad_word.sub(replacement_words[i], input_text)
@@ -67,9 +69,11 @@ def get_words(file):
     file - name of the file containing the words to be loaded (string)
          - should be a flat text file with one profanity entry per line
     """
+    # Get path to data folder in src
     ROOT = os.path.abspath(os.path.dirname(__file__))
-
     filename = os.path.join(ROOT, 'data', file)
+
+    # Create list of words from the txt files
     f = open(filename)
     wordlist = f.readlines()
     wordlist = [w.strip() for w in wordlist if w]

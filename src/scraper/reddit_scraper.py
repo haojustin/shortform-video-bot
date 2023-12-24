@@ -35,9 +35,8 @@ for item in items:
         post += paragraph.get_text()
     # Apply grammar and spelling check (will be charged if >500 requests per month)
     # post = grammar_spell_check(post)
-    # Censor profanity
+    # Replace bad words
     post = replace_bad_words(post)
-    print(post)
     posts.append(post)
 
     title = item.find_all("a", slot="title")
