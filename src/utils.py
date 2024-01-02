@@ -3,7 +3,7 @@ import time
 import os
 import re
 
-def grammar_spell_check(text):
+def grammar_check(text):
     """
     A function for fixing the grammar and spelling of the given text.
      
@@ -50,8 +50,8 @@ def replace_bad_words(input_text):
     input_text - the text to filter through (string)
     """
     # Get list of bad words and their replacements
-    bad_words = get_words("bad_words.txt")
-    replacement_words = get_words("replacement_words.txt")
+    bad_words = get_data("bad_words.txt")
+    replacement_words = get_data("replacement_words.txt")
 
     # Replace the bad word in the text if it exists
     for i in range(len(bad_words)):
@@ -61,7 +61,7 @@ def replace_bad_words(input_text):
     return input_text
 
 
-def get_words(file):
+def get_data(file):
     """ 
     Gets the word list from the provided file.
 
@@ -79,3 +79,19 @@ def get_words(file):
     wordlist = [w.strip() for w in wordlist if w]
     
     return wordlist
+
+def add_data(file, data):
+    """
+    Adds a new line of data to the specified file.
+
+    Parameters:
+    file - name of the file to be modified (string)
+    data - line to be added to the file (string)
+    """
+    # Get path to data folder in src
+    ROOT = os.path.abspath(os.path.dirname(__file__))
+    filename = os.path.join(ROOT, 'data', file)
+
+    # Add data to new line
+    with open(filename, "a") as f:
+        f.write(data + "\n")
