@@ -1,7 +1,7 @@
 import os
 from moviepy.editor import VideoFileClip, AudioFileClip, concatenate_videoclips
 
-base_dir = "../.." 
+base_dir = ".." 
 audio_dir = os.path.join(base_dir, "data/scraped_audio")
 video_dir = os.path.join(base_dir, "data/videos")
 output_dir = os.path.join(base_dir, "data/combined_videos")
