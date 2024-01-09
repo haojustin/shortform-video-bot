@@ -3,10 +3,10 @@ from selenium import webdriver
 import os
 import json
 import sys
-sys.path.append('../../src')
+sys.path.append('../src')
 from utils import grammar_check, scroll_down, replace_bad_words, add_data, get_data
 
-save_directory = os.path.join("..", "..", "data", "scraped_stories")
+save_directory = os.path.join("..", "data", "scraped_stories")
 os.makedirs(save_directory, exist_ok=True)
 
 urls = ["https://www.reddit.com/r/AmItheAsshole/top/", "https://www.reddit.com/r/stories/top/"]
