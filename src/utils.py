@@ -41,22 +41,22 @@ def scroll_down(driver, limit):
         time.sleep(2)
 
 
-def replace_bad_words(input_text):
+def replace_profanity(input_text):
     """ 
-    Returns the input string with bad words replaced with the corresponding
+    Returns the input string with profanity replaced with the corresponding
     replacement word.
 
     Parameter:
     input_text - the text to filter through (string)
     """
-    # Get list of bad words and their replacements
-    bad_words = get_data("bad_words.txt")
+    # Get list of profanity and their replacements
+    profanity = get_data("profanity.txt")
     replacement_words = get_data("replacement_words.txt")
 
-    # Replace the bad word in the text if it exists
-    for i in range(len(bad_words)):
-        bad_word = re.compile(re.escape(bad_words[i]), re.IGNORECASE)
-        input_text = bad_word.sub(replacement_words[i], input_text)
+    # Replace the profanity in the text if it exists
+    for i in range(len(profanity)):
+        word = re.compile(re.escape(profanity[i]), re.IGNORECASE)
+        input_text = word.sub(replacement_words[i], input_text)
     
     return input_text
 

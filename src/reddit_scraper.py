@@ -4,7 +4,7 @@ import os
 import json
 import sys
 sys.path.append('../src')
-from utils import grammar_check, scroll_down, replace_bad_words, add_data, get_data
+from utils import grammar_check, scroll_down, replace_profanity, add_data, get_data
 
 save_directory = os.path.join("..", "data", "scraped_stories")
 os.makedirs(save_directory, exist_ok=True)
@@ -50,7 +50,8 @@ for url in urls:
                 # post = grammar_check(post)
 
                 # Replace bad words
-                post = replace_bad_words(post)
+                post = replace_profanity(post)
+                title_text = replace_profanity(title_text)
 
                 story_data = {
                     "title": title_text,
