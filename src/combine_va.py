@@ -3,7 +3,7 @@ from moviepy.editor import VideoFileClip, AudioFileClip, concatenate_videoclips
 
 base_dir = ".." 
 audio_dir = os.path.join(base_dir, "data/scraped_audio")
-video_dir = os.path.join(base_dir, "data/videos")
+video_dir = os.path.join(base_dir, "data/background")
 output_dir = os.path.join(base_dir, "data/combined_videos")
 
 # Ensure output directory exists
@@ -39,7 +39,7 @@ for audio_file in os.listdir(audio_dir):
         final_clip = video_clip.set_audio(audio_clip)
 
         # Output file path
-        output_file = os.path.join(output_dir, f"combined_{audio_file.split('.')[0]}.mp4")
+        output_file = os.path.join(output_dir, f"{audio_file.split('.')[0]}.mp4")
 
         # Write the result to a file
         final_clip.write_videofile(output_file, codec="libx264", audio_codec="aac")
