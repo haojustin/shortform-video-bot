@@ -13,7 +13,7 @@ if not os.path.exists(output_dir):
 # Get video file
 video_files = [f for f in os.listdir(video_dir) if f.endswith(".mp4")]
 if not video_files:
-    raise Exception("No video files found in videos directory.")
+    raise Exception("No video files found in background directory.")
 video_file = os.path.join(video_dir, video_files[0])
 
 # Load the video

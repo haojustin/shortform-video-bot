@@ -40,6 +40,7 @@ for url in urls:
 
             title = item.find_all("a", slot="title")
             title_text = title[0].get_text().strip()
+            title_text = replace_profanity(title_text)
 
             used_stories = get_data("used_stories.txt")
 
@@ -51,19 +52,41 @@ for url in urls:
 
                 # Replace bad words
                 post = replace_profanity(post)
-                title_text = replace_profanity(title_text)
 
-                story_data = {
-                    "title": title_text,
-                    "content": post
-                }
+                part = 1
+                while len(post) > 0 and not post.isspace():
+                    if part == 1:
+                        post_start = post[:850]
+                    split = 0
 
-                # Construct the file path for the JSON file to be saved
-                file_path = os.path.join(save_directory, f"story_{len(used_stories)+1}.json")
+                    if len(post) > 900:
+                        split = post.find(" ", 900)
+                        story_data = {
+                            "title": title_text + f" Part {part}",
+                            "content": post[:split]
+                        }
+                        post = post[split:]
+                    elif len(post) < 30:
+                        story_data = {
+                            "title": title_text + f" Part {part}",
+                            "content": post + post_start
+                        }
+                        post = ""
+                    else:
+                        story_data = {
+                            "title": title_text + f" Part {part}",
+                            "content": post
+                        }
+                        post = ""
 
-                # Open the file in write mode and dump the story data as JSON
-                with open(file_path, "w", encoding="utf-8") as file:
-                    json.dump(story_data, file, ensure_ascii=False, indent=4)
+                    # Construct the file path for the JSON file to be saved
+                    file_path = os.path.join(save_directory, f"story_{len(used_stories)+1}_part_{part}.json")
+
+                    # Open the file in write mode and dump the story data as JSON
+                    with open(file_path, "w", encoding="utf-8") as file:
+                        json.dump(story_data, file, ensure_ascii=False, indent=4)
+
+                    part += 1
 
                 # Add current story to used stories
                 add_data("used_stories.txt", title_text)
