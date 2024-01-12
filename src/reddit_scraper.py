@@ -1,19 +1,23 @@
 from bs4 import BeautifulSoup 
 from selenium import webdriver 
-import os
-import json
-import sys
+import os, json, sys
 sys.path.append('../src')
-from utils import grammar_check, scroll_down, replace_profanity, add_data, get_data
+from scraper_utils import grammar_check, scroll_down, replace_profanity, add_data, get_data
 
+# Create directory to save story data
 save_directory = os.path.join("..", "data", "scraped_stories")
 os.makedirs(save_directory, exist_ok=True)
 
-urls = ["https://www.reddit.com/r/AmItheAsshole/top/", "https://www.reddit.com/r/stories/top/"]
+# The urls to be scraped from
+urls = [
+    "https://www.reddit.com/r/AmItheAsshole/top/", 
+    "https://www.reddit.com/r/stories/top/"
+]
   
 for url in urls:
-
+    # Keep track of number of time we need to scroll the page
     count = 0
+    # Whether or not a story is found in the url
     success = False
 
     while not success:
@@ -53,6 +57,7 @@ for url in urls:
                 # Replace bad words
                 post = replace_profanity(post)
 
+                # Split story into parts (max 1 min per part)
                 part = 1
                 while len(post) > 0 and not post.isspace():
                     if part == 1:
@@ -95,6 +100,5 @@ for url in urls:
         
         # Increment the number of times we need to scroll the page
         count += 1
-
 
 driver.close()

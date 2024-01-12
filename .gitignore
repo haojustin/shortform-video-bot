@@ -1,2 +1,4 @@
 venv/
 .envrc
+src/cookies.txt
+data/

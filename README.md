@@ -1,11 +1,10 @@
-# TTS-Caption-Bot
+# Short-Form Video Bot
 
-Make sure to have Python3 installed, or replace all uses of python with python3.
-1. Create a virtual environment with `python -m venv venv`
-2. Activate the virtual environment with `. venv/bin/activate`
-3. Install requirements with `pip install -r requirements.txt`
-4. Install `ffmpeg` with `brew install ffmpeg`
-5. Create a `.envrc` file with the provided template
-6. Run the scraper with `python reddit_scraper.py` (make sure you are in the correct directory)
-7. Run the TTS with `python scraped_TTS.py`
-8. Deactivate the virtual environment with `deactivate`
+This bot 
+- web-scrapes interesting stories from Reddit using **Selenium** and **Beautiful Soup**
+- creates a mp3 audio file of the story using **AWS Polly**
+- creates a transcript of the audio file using **Google Cloud Speech to Text**
+- combines a mp4 video with the mp3 audio and adds the subtitles to the combined video using **MoviePy**
+- automatically posts to @reddit_story_narrator on TikTok with **tiktok-uploader**
+
+The `main.py` script is run automatically every 2 hours with **AWS Lambda** and **Amazon CloudWatch**. Uploading to more platforms is in the works.
