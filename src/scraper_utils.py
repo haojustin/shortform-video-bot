@@ -1,7 +1,4 @@
-import requests
-import time
-import os
-import re
+import requests, time, os, re
 
 def grammar_check(text):
     """
