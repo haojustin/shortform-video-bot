@@ -27,8 +27,7 @@ def transcribe_audio(file_path):
 
     return response
 
-
-def get_transcript(gcs_response, bin_size=0.5):
+def get_transcript(gcs_response, bin_size=0.3):
     """
     Returns the transcript of an audio file given the json response from the
     speech-to-text API call.
@@ -41,30 +40,39 @@ def get_transcript(gcs_response, bin_size=0.5):
     current_sentence = []
     current_sentence_start = None
     current_sentence_end = None
+    defer_split = False  # Flag to defer splitting after "part"
 
     for result in gcs_response.results:
-        # Google responses have alternative transcriptions in which we selected the one the model is most confident in (alternatives[0])
         alternative = result.alternatives[0]
 
         for word_info in alternative.words:
-            # Info we have from the json response
             word = word_info.word
             start_time = word_info.start_time
             end_time = word_info.end_time
 
-            # If this is the first sentence, instantiate the current_sentence start and end times
             if current_sentence_start is None:
                 current_sentence_start = start_time
                 current_sentence_end = start_time
 
-            # Checks if current word belongs in this bin or the next one
-            if current_sentence_end.total_seconds() - current_sentence_start.total_seconds() > bin_size:
+            if word.lower() == "part":
+                defer_split = True  # Defer the next split
+
+            if defer_split and len(current_sentence) > 1:
+                if current_sentence[-1].lower() == "part":
+                    current_sentence.append(word)
+                    current_sentence_end = end_time
+                    continue
+                else:
+                    defer_split = False  # Reset flag after adding the word following "part"
+
+            if current_sentence_end.total_seconds() - current_sentence_start.total_seconds() > bin_size and not defer_split:
                 transcript.append(((current_sentence_start.total_seconds(), current_sentence_end.total_seconds()),
                                    " ".join(current_sentence)))
-                current_sentence = []
+                current_sentence = [word]  # Start new sentence with current word
                 current_sentence_start = start_time
+            else:
+                current_sentence.append(word)
 
-            current_sentence.append(word)
             current_sentence_end = end_time
 
     # Add the last sentence

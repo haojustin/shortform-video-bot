@@ -15,7 +15,7 @@ def convert_tts(title, content, output_path):
     polly = session.client("polly")
 
     try:
-        full_text = title + "\n\n" + content
+        full_text = title + "\n\n\n\n" + content
         response = polly.synthesize_speech(Engine="neural", Text=full_text, OutputFormat="mp3", VoiceId="Joanna")
 
         if "AudioStream" in response:

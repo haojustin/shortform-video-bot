@@ -26,9 +26,9 @@ def tiktok_upload(filename, description):
 
 # Create path directories and list of data
 videos_directory = os.path.join("..", "data", "captioned_videos")
-videos_list = os.listdir(videos_directory)
+videos_list = sorted(os.listdir(videos_directory))
 
-stories_directory = os.path.join("..", "data", "scraped_stories")
+stories_directory = os.path.join("..", "data", "scraped_stories_raw")
 stories_list = sorted(os.listdir(stories_directory))
 
 for i in range(len(stories_list)):
@@ -40,4 +40,4 @@ for i in range(len(stories_list)):
     title = story_data.get("title", "")
 
     # Upload video with title and tags as the description
-    tiktok_upload(videos_list[i], title + " #reddit #redditstories #redditreadings #askreddit #storynarrations #storytime #redditstorytime #fyp")
+    tiktok_upload(videos_list[i], title + "#reddit #redditstories #redditreadings #askreddit #storynarrations #storytime #redditstorytime #fyp")

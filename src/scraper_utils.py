@@ -92,3 +92,8 @@ def add_data(file, data):
     # Add data to new line
     with open(filename, "a") as f:
         f.write(data + "\n")
+
+def estimate_reading_time(text):
+    words_per_second = 200 / 60  # 200 words per minute
+    word_count = len(text.split())
+    return word_count / words_per_second
