@@ -1,4 +1,6 @@
 venv/
 .envrc
 src/cookies.txt
+src/data/used_stories.txt
 data/
+__pycache__

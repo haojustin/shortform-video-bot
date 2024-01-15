@@ -3,7 +3,9 @@ bs4==0.0.1
 google-cloud-speech==2.23.0
 gtts==2.4.0
 moviepy==1.0.3
+pillow==9.5.0
 pydub==0.25.1
+pytube==15.0.0
 requests==2.31.0
 selenium==4.16.0
 tiktok_uploader==1.0.14
