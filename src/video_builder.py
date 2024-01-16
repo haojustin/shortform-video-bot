@@ -67,14 +67,14 @@ def add_title_to_banner(story_json_path, banner_template_path, output_banner_pat
     title_text = story_data["title"]
     
     image = Image.open(banner_template_path)
-    font = ImageFont.truetype('../data/font/h.otf', 13)
+    font = ImageFont.truetype('../data/font/h.otf', 36)
     draw = ImageDraw.Draw(image)
 
     # Coordinates for text placement
-    text_x, text_y = 450, 340
+    text_x, text_y = 1000, 790
     
     # Hardcoded character limit per line - adjust as needed
-    max_chars_per_line = 47  # Change this number based on your specific requirements
+    max_chars_per_line = 50  # Change this number based on your specific requirements
 
     # Wrap text
     wrapped_text = textwrap.wrap(title_text, width=max_chars_per_line)
@@ -148,7 +148,7 @@ def generate_video_with_captions(video_path, transcript, banner_path, output_pat
 
     subtitle_clips = []
     for start, end, text in transcript:
-        subtitle_clip = TextClip(text, fontsize=40, color='white', font='Impact',
+        subtitle_clip = TextClip(text, fontsize=98, color='white', font='Impact',
                                  stroke_color='black', stroke_width=2)
         subtitle_clip = subtitle_clip.set_pos('center').set_duration(end - start).set_start(start)
         subtitle_clips.append(subtitle_clip)
@@ -173,7 +173,7 @@ for video_file in os.listdir(videos_dir):
 
         video_path = os.path.join(videos_dir, video_file)
         transcript_path = os.path.join(transcripts_dir, os.path.splitext(video_file)[0] + '.txt')
-        output_video_path = os.path.join(output_dir, 'captioned_' + video_file)
+        output_video_path = os.path.join(output_dir, video_file)
 
         banner_path = os.path.join(banner_complete_dir, os.path.splitext(video_file)[0] + '.png')  
         
