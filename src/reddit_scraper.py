@@ -13,9 +13,9 @@ os.makedirs(save_directory, exist_ok=True)
 
 # The urls to be scraped from
 urls = [
-    "https://www.reddit.com/r/stories/top/", 
+    "https://www.reddit.com/r/AmItheAsshole/top/", 
 ]
-#, https://www.reddit.com/r/AmItheAsshole/top/, https://www.reddit.com/r/tifu/top/
+#https://www.reddit.com/r/tifu/top/,"https://www.reddit.com/r/stories/top/"
 
 for url in urls:
     # Keep track of number of time we need to scroll the page
