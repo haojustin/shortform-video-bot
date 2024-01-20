@@ -7,4 +7,4 @@ This bot
 - combines a mp4 video with the mp3 audio and adds the subtitles to the combined video using **MoviePy**
 - automatically posts to @reddit_story_narrator on TikTok with **tiktok-uploader**
 
-The `main.py` script is run automatically every 2 hours with **AWS Lambda** and **Amazon CloudWatch**. Uploading to more platforms is in the works.
+The `main.py` script will automatically run every 2 hours with **AWS Lambda** and **Amazon CloudWatch**. Uploading to more platforms is also in the works.
