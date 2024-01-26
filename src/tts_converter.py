@@ -2,21 +2,28 @@ import os, json
 from boto3 import Session
 from contextlib import closing
 
-def convert_tts(title, content, output_path):
+import os, json
+from boto3 import Session
+from contextlib import closing
+
+def convert_tts(title, content, output_path, speech_rate="120%"):
     """
-    Creates a mp3 audio file from the given story title and content.
+    Creates an mp3 audio file from the given story title and content with adjustable speech rate.
 
     Parameters:
     title - the story title (string)
     content - the story content (string)
     output_path - path of where to store the audio file (string)
+    speech_rate - speed of the speech as a percentage (string, default "100%")
     """
     session = Session() 
     polly = session.client("polly")
 
+    # Adjust speech rate using SSML
+    ssml_text = f"<speak><prosody rate='{speech_rate}'>{title}</prosody>\n\n\n\n<prosody rate='{speech_rate}'>{content}</prosody></speak>"
+
     try:
-        full_text = title + "\n\n\n\n" + content
-        response = polly.synthesize_speech(Engine="neural", Text=full_text, OutputFormat="mp3", VoiceId="Joanna")
+        response = polly.synthesize_speech(Engine="neural", Text=ssml_text, TextType="ssml", OutputFormat="mp3", VoiceId="Joanna")
 
         if "AudioStream" in response:
             with closing(response["AudioStream"]) as stream:

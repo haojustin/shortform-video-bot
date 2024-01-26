@@ -13,9 +13,9 @@ os.makedirs(save_directory, exist_ok=True)
 
 # The urls to be scraped from
 urls = [
-    "https://www.reddit.com/r/AmItheAsshole/top/", 
+    "https://www.reddit.com/r/AmItheAsshole/top/?t=hour",
 ]
-#https://www.reddit.com/r/tifu/top/,"https://www.reddit.com/r/stories/top/"
+# "https://www.reddit.com/r/EntitledPeople/top/", "https://www.reddit.com/r/nosleep/top/", "https://www.reddit.com/r/stories/top/","https://www.reddit.com/r/tifu/top/","https://www.reddit.com/r/AmItheAsshole/top/","https://www.reddit.com/r/AITAH/top/", "https://www.reddit.com/r/tifu/top/?f=flair_name%3A%22M%22",
 
 for url in urls:
     # Keep track of number of time we need to scroll the page
@@ -51,9 +51,9 @@ for url in urls:
             used_stories = get_data("used_stories.txt")
 
             # Maximum characters for one part
-            MAX_CHAR = 860
+            MAX_CHAR = 1500
             # Threshold to append a section of previous part
-            MID_CHAR = 200
+            MID_CHAR = 400
             # Minimum characters (trash if less than this)
             MIN_CHAR = 50
 
